@@ -35,7 +35,7 @@ return (
 <div className="modal is-active">
   <div className="modal-background" onClick ={props.click}/>
     <div className="modal-content">
-    <div className="title">Co-Mentoring</div>
+    <div className="titre">Co-Mentoring</div>
     {content}
     </div>
   <button className="modal-close is-large" aria-label="close" onClick = {props.click}/>

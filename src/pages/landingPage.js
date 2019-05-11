@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Button from "../components/button"
+import Button from "../components/landingpage/button"
 import Modal from "../components/modal"
+import Footer from "../components/sub-components/footer"
+import "./landingPage.css"
 
 class landingPage extends Component {
     state = {
@@ -18,10 +20,6 @@ class landingPage extends Component {
     componentDidMount(){
       console.log("landing page did mount")
     }
-    // shouldComponentUpdate(nextProp,nextState){
-    //   console.log(this.state.modal)
-    //   return false
-    // }
     componentDidUpdate(){
       console.log("landing page did update")
     }
@@ -80,12 +78,18 @@ class landingPage extends Component {
       modal =  <Modal click = {() => this.modalHandler("")} currentModal ={this.state.currentModal} submit ={submit}/>
     }
     return (
+      <React.Fragment>
+      <div className = "top-bar"/>
       <div className ="landing">
-      <h1>Get in touch with your colleagues to get a mentor or to be
-      someone's mentor</h1>
+      <div className ="landing-body">
+      <h1 className="title is-1 has-text-white">Co-Mentoring</h1>
+      <p className="subtitle is-5 has-text-white">Get in touch with your colleagues to get a mentor or to be someone's mentor</p>
       <Button click ={this.modalHandler}/>
+      </div>
       {modal}
-    </div>
+      </div>
+     <Footer/>
+     </React.Fragment>
     );
   }
 }

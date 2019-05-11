@@ -1,5 +1,4 @@
 import React from "react"
-
 const inputField = props => {
   return (
     <div className="field">
