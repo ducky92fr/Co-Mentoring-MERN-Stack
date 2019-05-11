@@ -1,7 +1,6 @@
-// import { Link } from "react-router-dom";
 import React, {useEffect} from "react";
-import Aux from "../hoc/Aux"
-import Button from "../sub-components/linkBtn"
+import Aux from "../../components/hoc/Aux"
+import Button from "../../components/sub-components/linkBtn"
 const Btn = (props) => { 
   useEffect(() => {
     console.log("useEffect here in Button group")

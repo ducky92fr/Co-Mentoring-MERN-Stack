@@ -15,7 +15,7 @@ footer {
   height:32px;
 }
 .landing {
-  background: url("../img/landingPage.jpg") no-repeat;
+  background: url("../../img/landingPage.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: calc(100vh - (32px + 60px));

@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from "react-router-dom";
+import axios from 'axios'
+
+axios.defaults.baseURL = "https://comentoring.herokuapp.com/"
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 ReactDOM.render(
   <Router>
     <App/>
