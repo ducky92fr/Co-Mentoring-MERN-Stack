@@ -31,10 +31,8 @@ class landingPage extends Component {
       if(prevState.modal !== this.state.modal && prevState.modal === true){
         this.props.history.replace("/")
       }
-      console.log("landing page did update")
     }
   modalHandler = (val) => {
-    console.log("here modal handler")
       this.setState(prevState => ({
         firstName:"",
         lastName:"",
@@ -43,8 +41,7 @@ class landingPage extends Component {
         modal: !prevState.modal,
         currentModal:val
     }))
-
-    // this.props.resetError()
+    this.props.resetError()
     }
 
   onChange = (event) =>  {
