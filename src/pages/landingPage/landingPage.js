@@ -4,7 +4,7 @@ import Button from "./button"
 import Modal from "../../components/modal"
 import Footer from "../../components/sub-components/footer"
 import {connect} from 'react-redux'
-import {registerUser} from '../../actions/authActions'
+import {registerUser, loginUser} from '../../actions/authActions'
 import {resetError} from '../../actions/errorActions'
 import "./landingPage.css"
 
@@ -27,11 +27,12 @@ class landingPage extends Component {
       return {errors:nextProps.errors}
     }
   }
-    componentDidUpdate(prevState){
-      if(prevState.modal !== this.state.modal && prevState.modal === true){
-        this.props.history.replace("/")
-      }
+  componentDidMount(){
+    if(this.props.isAuth.isAuth){
+      this.props.history.push('/user-dashboard')
     }
+  }
+
   modalHandler = (val) => {
       this.setState(prevState => ({
         firstName:"",
@@ -63,19 +64,13 @@ class landingPage extends Component {
   onSubmitLogin = (event) => {
     event.preventDefault();
 
-    // const data = {
-    //   email: this.state.email,
-    //   password: this.state.password
-    // };
-    // axios
-    //   .post("/api/users/login", data)
-    //   .then(res => {
-    //   console.log(res.data)
-    //   this.props.history.replace("/user-dashboard")})
-    //   .catch(err => {
-    //     console.log(err.response.data.errors) 
-    //     return this.setState({ errors: err.response.data.errors })
-    //   })
+    const data = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.loginUser(data,this.props.history)
+
+  
   }
   render() {
     let modal;
@@ -109,6 +104,7 @@ return{
 const mapDispatchToProps =  dispatch => {
   return{
   registerUser : (data) => dispatch(registerUser(data)),
+  loginUser :(data,history) => dispatch(loginUser(data,history)),
   resetError : () => dispatch(resetError())
 }}
 

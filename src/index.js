@@ -7,10 +7,12 @@ import { BrowserRouter as Router} from "react-router-dom";
 import axios from 'axios'
 import {Provider} from 'react-redux';
 import store from './store/store'
+import setAuthToken from './utils/setHeaders'
 
 
 axios.defaults.baseURL = "https://comentoring.herokuapp.com/"
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+setAuthToken(localStorage.jwtToken);
 
 
 
