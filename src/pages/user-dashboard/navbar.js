@@ -1,9 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Aux from "../../components/hoc/Aux"
 import { NavLink } from 'react-router-dom';
 import Button from '../../components/sub-components/linkBtn'
 
-const navBar = (props) => { 
+const NavBar = (props) => { 
+  useEffect(()=> {
+    console.log("here inside navBar")
+  })
   return (
     <Aux>
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -36,4 +39,4 @@ const navBar = (props) => {
     </Aux>
   )
 }
-export default navBar
+export default React.memo(NavBar)
