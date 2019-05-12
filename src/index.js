@@ -3,15 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import axios from 'axios'
+import {Provider} from 'react-redux';
+import store from './store/store'
+
 
 axios.defaults.baseURL = "https://comentoring.herokuapp.com/"
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+
+
+
 ReactDOM.render(
+  <Provider store ={store}>
   <Router>
     <App/>
   </Router>
+  </Provider>
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

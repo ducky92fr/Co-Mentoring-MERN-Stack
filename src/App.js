@@ -1,13 +1,20 @@
-import React from 'react';
+import React,{Component} from 'react';
 import LandingPage from "./pages/landingPage/landingPage"
-import { Route } from "react-router-dom";
-function App() {
+import UserDashboard from "./pages/user-dashboard/user-dashboard"
+import { Route,Redirect,Switch } from "react-router-dom"
+class App extends Component {
+  state ={
+    isAuth:true
+  }
+  render(){
   return (
     <div>
+      <Switch>
       <Route exact path="/" component={LandingPage} />
-      <Route path="/user-dasboard" />
+      {this.state.isAuth ? <Route path="/user-dasboard" component={UserDashboard}/> : <Redirect from = "/user-dasboard" to ="/"/> }
+      </Switch>
     </div>
   );
-}
+}}
 
 export default App;

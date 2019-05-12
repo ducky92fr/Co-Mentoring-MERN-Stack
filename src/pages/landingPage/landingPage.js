@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import Button from "./button"
 import Modal from "../../components/modal"
 import Footer from "../../components/sub-components/footer"
+import {connect} from 'react-redux'
+import {registerUser} from '../../actions/authActions'
+import {resetError} from '../../actions/errorActions'
 import "./landingPage.css"
 
 class landingPage extends Component {
@@ -17,18 +20,31 @@ class landingPage extends Component {
       currentModal:""
     };
 
-    componentDidMount(){
-      console.log("landing page did mount")
+    static getDerivedStateFromProps(nextProps,prevState){
+      if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
+        return null
+    } else {
+      return {errors:nextProps.errors}
     }
-    componentDidUpdate(){
+  }
+    componentDidUpdate(prevState){
+      if(prevState.modal !== this.state.modal && prevState.modal === true){
+        this.props.history.replace("/")
+      }
       console.log("landing page did update")
     }
   modalHandler = (val) => {
+    console.log("here modal handler")
       this.setState(prevState => ({
+        firstName:"",
+        lastName:"",
+        password:"",
+        password2:"",
         modal: !prevState.modal,
-        currentModal:val,
-        errors:{}
+        currentModal:val
     }))
+
+    // this.props.resetError()
     }
 
   onChange = (event) =>  {
@@ -37,7 +53,6 @@ class landingPage extends Component {
 
   onSubmitRegister = (event) => {
     event.preventDefault();
-
     const data = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -45,30 +60,25 @@ class landingPage extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(data)
-    axios
-      .post("/api/users/signup", data)
-      .then( res => console.log(res.data))
-      .catch(err => {
-        return this.setState({ errors: err.response.data.errors })
-      });
+    this.props.registerUser(data)
   }
 
   onSubmitLogin = (event) => {
     event.preventDefault();
 
-    const data = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    console.log(data)
-    axios
-      .post("/api/users/login", data)
-      .then(res => console.log(res.data))
-      .catch(err => {
-        console.log(err.response.data.errors) 
-        return this.setState({ errors: err.response.data.errors })
-      })
+    // const data = {
+    //   email: this.state.email,
+    //   password: this.state.password
+    // };
+    // axios
+    //   .post("/api/users/login", data)
+    //   .then(res => {
+    //   console.log(res.data)
+    //   this.props.history.replace("/user-dashboard")})
+    //   .catch(err => {
+    //     console.log(err.response.data.errors) 
+    //     return this.setState({ errors: err.response.data.errors })
+    //   })
   }
   render() {
     let modal;
@@ -94,6 +104,16 @@ class landingPage extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+return{
+ isAuth:state.auth,
+ errors:state.errors
+}}
+const mapDispatchToProps =  dispatch => {
+  return{
+  registerUser : (data) => dispatch(registerUser(data)),
+  resetError : () => dispatch(resetError())
+}}
 
-export default landingPage;
+export default connect(mapStateToProps,mapDispatchToProps)(landingPage);
 
