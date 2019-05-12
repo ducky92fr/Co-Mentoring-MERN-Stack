@@ -29,7 +29,7 @@ class landingPage extends Component {
   }
   componentDidMount(){
     if(this.props.isAuth.isAuth){
-      this.props.history.push('/user-dashboard')
+      this.props.history.push('/user')
     }
   }
 

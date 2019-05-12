@@ -31,7 +31,7 @@ export const loginUser = (userData,history) => dispatch => {
       const decoded = jwt_decode(token)
       // Current user
       dispatch(setCurrentUser(decoded))
-      history.replace("/user-dashboard")})
+      history.replace("/user")})
       .catch(err => {
         console.log(err.response.data.errors) 
        return dispatch(getErrors(err))
@@ -55,5 +55,4 @@ export const loginUser = (userData,history) => dispatch => {
       localStorage.removeItem('jwtToken')
       setAuthToken(false);
       dispatch(setCurrentUser({}))
-
     }
