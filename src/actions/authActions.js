@@ -1,4 +1,5 @@
 import {getErrors} from  './errorActions'
+import {signUpSucces} from './postSignUp'
 import {SET_CURRENT_USER} from './types'
 import axios from "axios";
 import setAuthToken from '../utils/setHeaders'
@@ -8,7 +9,8 @@ export const registerUser = userData=> dispatch => {
   axios
   .post("/api/users/signup", userData)
   .then( res => {
-    console.log(res.data)})
+    console.log(res.data)
+    return dispatch(signUpSucces(res))})
   .catch(err => {
     console.log(err.response)
     return dispatch(getErrors(err))}
@@ -55,3 +57,5 @@ export const loginUser = (userData,history) => dispatch => {
       setAuthToken(false);
       dispatch(setCurrentUser({}))
     }
+
+

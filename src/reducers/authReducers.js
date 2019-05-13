@@ -2,7 +2,7 @@ import {SET_CURRENT_USER} from '../actions/types'
 import isEmpty from '../validation/isEmp'
 const initialState ={
   isAuth: false,
-  user:{}
+  user:{},
 }
 
 const reducer = (state = initialState,action) => {

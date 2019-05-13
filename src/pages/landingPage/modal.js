@@ -5,6 +5,7 @@ import InputItems from "../../components/sub-components/inputItems"
 import Modal from "../../components/modal"
 
 const ModalGroup = (props) => {
+  console.log(props.accountCreated)
 const {submit,errors,click,change,currentModal} = props
 const {email,password,password2} = errors
 useEffect(()=> {
@@ -75,9 +76,10 @@ if(currentModal === "register") {
   )}
 return (
     <Modal titre = "Co-Mentoring" click ={click}>
+     {props.accountCreated ? <div className ="has-text-danger is-size-5 has-text-centered">Account created please login</div> : null}
     {content}
     </Modal>
   )
 }
-export default ModalGroup
+export default React.memo(ModalGroup)
 

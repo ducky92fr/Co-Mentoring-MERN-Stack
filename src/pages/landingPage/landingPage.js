@@ -4,6 +4,7 @@ import ModalGroup from "./modal"
 import Footer from "../../components/sub-components/footer"
 import {connect} from 'react-redux'
 import {registerUser, loginUser} from '../../actions/authActions'
+import {resetCreated} from '../../actions/postSignUp'
 import {resetError} from '../../actions/errorActions'
 import "./landingPage.css"
 
@@ -18,10 +19,14 @@ class landingPage extends Component {
     };
 
     static getDerivedStateFromProps(nextProps,prevState){
-      if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
-        return null
-    } else {
-      return {errors:nextProps.errors}
+      if(nextProps.created === true){
+        return {currentModal : "login"}
+      } else{
+        if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
+            return null
+      } else {
+        return {errors:nextProps.errors}
+      }
     }
   }
   componentDidMount(){
@@ -32,12 +37,15 @@ class landingPage extends Component {
 
   modalHandler = (val) => {
       this.setState(prevState => ({
+        email:"",
         password:"",
         password2:"",
         modal: !prevState.modal,
-        currentModal:val
+        currentModal:val,
     }))
     this.props.resetError()
+    this.props.resetCreated()
+  
     }
 
   onChange = (event) =>  {
@@ -52,11 +60,11 @@ class landingPage extends Component {
       password2: this.state.password2
     };
     this.props.registerUser(data)
+  
   }
 
   onSubmitLogin = (event) => {
     event.preventDefault();
-
     const data = {
       email: this.state.email,
       password: this.state.password
@@ -71,7 +79,7 @@ class landingPage extends Component {
     if(this.state.currentModal === "login"){submit = this.onSubmitLogin} 
     if(this.state.currentModal === "register"){submit = this.onSubmitRegister}
     if(this.state.modal === true) {
-      modal =  <ModalGroup click = {() => this.modalHandler("")} currentModal ={this.state.currentModal}  submit ={submit} errors ={this.state.errors} change={this.onChange}/>
+      modal =  <ModalGroup click = {() => this.modalHandler("")} currentModal ={this.state.currentModal}  submit ={submit} errors ={this.state.errors} change={this.onChange} accountCreated={this.props.created}/>
     }
     return (
       <React.Fragment>
@@ -92,13 +100,15 @@ class landingPage extends Component {
 const mapStateToProps = (state) => {
 return{
  isAuth:state.auth,
- errors:state.errors
+ errors:state.errors,
+ created:state.postSignUp.created
 }}
 const mapDispatchToProps =  dispatch => {
   return{
   registerUser : (data) => dispatch(registerUser(data)),
   loginUser :(data,history) => dispatch(loginUser(data,history)),
-  resetError : () => dispatch(resetError())
+  resetError : () => dispatch(resetError()),
+  resetCreated : () => dispatch(resetCreated())
 }}
 
 export default connect(mapStateToProps,mapDispatchToProps)(landingPage);
