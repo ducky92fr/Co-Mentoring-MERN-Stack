@@ -13,7 +13,6 @@ class userLogin extends Component {
     state = {
       toggleNav: false
     };
-
     onSubmitLogout = (event) => {
     event.preventDefault();
     this.props.logoutUser()
