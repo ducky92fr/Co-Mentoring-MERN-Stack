@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import Aux from "../../components/hoc/Aux"
 import { NavLink } from 'react-router-dom';
-import Button from '../../components/sub-components/linkBtn'
+import Button from '../../components/sub-components/button'
 
 const NavBar = (props) => { 
   useEffect(()=> {

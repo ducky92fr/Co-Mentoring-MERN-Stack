@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "./button"
-import Modal from "../../components/modal"
+import ModalGroup from "./modal"
 import Footer from "../../components/sub-components/footer"
 import {connect} from 'react-redux'
 import {registerUser, loginUser} from '../../actions/authActions'
@@ -9,8 +9,6 @@ import "./landingPage.css"
 
 class landingPage extends Component {
     state = {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
       password2: "",
@@ -34,8 +32,6 @@ class landingPage extends Component {
 
   modalHandler = (val) => {
       this.setState(prevState => ({
-        firstName:"",
-        lastName:"",
         password:"",
         password2:"",
         modal: !prevState.modal,
@@ -51,8 +47,6 @@ class landingPage extends Component {
   onSubmitRegister = (event) => {
     event.preventDefault();
     const data = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
@@ -77,7 +71,7 @@ class landingPage extends Component {
     if(this.state.currentModal === "login"){submit = this.onSubmitLogin} 
     if(this.state.currentModal === "register"){submit = this.onSubmitRegister}
     if(this.state.modal === true) {
-      modal =  <Modal click = {() => this.modalHandler("")} currentModal ={this.state.currentModal}  submit ={submit} errors ={this.state.errors} change={this.onChange}/>
+      modal =  <ModalGroup click = {() => this.modalHandler("")} currentModal ={this.state.currentModal}  submit ={submit} errors ={this.state.errors} change={this.onChange}/>
     }
     return (
       <React.Fragment>

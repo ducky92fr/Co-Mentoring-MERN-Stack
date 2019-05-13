@@ -19,14 +19,12 @@ class userLogin extends Component {
   }
 
 toggleNav = () => {
-  console.log('here')
   this.setState(prevState => ({toggleNav: !prevState.toggleNav}))
 }
 componentDidMount(){
-  console.log("here")
 }
 componentDidUpdate(){
-  console.log("here did update")
+
   if(!localStorage.jwtToken){
       this.props.logoutUser()
   }
