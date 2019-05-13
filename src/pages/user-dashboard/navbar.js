@@ -9,7 +9,7 @@ const NavBar = (props) => {
   })
   return (
     <Aux>
-    <nav className="navbar has-shadow is-transparent" role="navigation" aria-label="main navigation">
+    <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
           <NavLink className="navbar-item" to ="/user">
           <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="home"/>
@@ -23,7 +23,7 @@ const NavBar = (props) => {
       <div id="navbarBasicExample" className={" navbar-menu " + props.navToggle}>
         <div className="navbar-start">
             <NavLink className="navbar-item" to ="/user">Home</NavLink>
-            <NavLink className="navbar-item" to ="/user/user-profile">Profile</NavLink>
+            <NavLink className="navbar-item" to ="/user/user-profile">Edit Profile</NavLink>
             <NavLink className="navbar-item" to ="/user/user-chat">Chat</NavLink>
         <NavLink className="navbar-item" to ="/user/user-search">Search</NavLink>
         </div>

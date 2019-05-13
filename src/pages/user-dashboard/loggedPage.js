@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from './navbar'
-import userProfile from './nestedPage/userProfile'
+import userProfile from './nestedPage/userProfile/userProfile'
 import userChat from './nestedPage/userChat'
 import userSearch from './nestedPage/userSearch'
 import userInfo from './nestedPage/userInfor'

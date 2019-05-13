@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Aux from "../../components/hoc/Aux"
-import Button from "../../components/sub-components/linkBtn"
+import Button from "../../components/sub-components/button"
 const Btn = (props) => { 
   useEffect(() => {
     console.log("useEffect here in Button group")

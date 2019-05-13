@@ -1,5 +1,4 @@
 import React from "react";
-
 const Button = (props) => { 
   return (
     <p className = "control">

@@ -90,7 +90,7 @@ class landingPage extends Component {
       </div>
       {modal}
       </div>
-     <Footer/>
+     <Footer>Copyright 2019 Duc Nguyen / Christofer Perez Bustamante</Footer>
      </React.Fragment>
     );
   }
