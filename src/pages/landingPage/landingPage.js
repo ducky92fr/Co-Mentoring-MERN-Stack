@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Button from "./button"
 import Modal from "../../components/modal"
 import Footer from "../../components/sub-components/footer"

@@ -14,14 +14,13 @@ const NavBar = (props) => {
           <NavLink className="navbar-item" to ="/user">
           <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="home"/>
           </NavLink>
-
-          <NavLink to ="" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          </NavLink>
+          <div  role="button" onClick ={props.toggleNav} className={"navbar-burger burger "+props.navToggle} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true" ></span>
+          <span aria-hidden="true" ></span>
+          <span aria-hidden="true" ></span>
+          </div>
       </div>
-      <div id="navbarBasicExample" className="navbar-menu">
+      <div id="navbarBasicExample" className={"nav-opacity navbar-menu " + props.navToggle}>
         <div className="navbar-start">
             <NavLink className="navbar-item" to ="/user">Home</NavLink>
             <NavLink className="navbar-item" to ="/user/user-profile">Profile</NavLink>

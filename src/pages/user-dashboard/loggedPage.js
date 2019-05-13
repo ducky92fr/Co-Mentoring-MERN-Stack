@@ -7,9 +7,11 @@ import userSearch from './nestedPage/userSearch'
 import userInfo from './nestedPage/userInfor'
 import {connect} from 'react-redux'
 import {logoutUser} from '../../actions/authActions'
+import './loggedPage.css'
 
 class userLogin extends Component {
     state = {
+      toggleNav: false
     };
 
     onSubmitLogout = (event) => {
@@ -17,13 +19,15 @@ class userLogin extends Component {
     this.props.logoutUser()
   }
 
-
-
+toggleNav = () => {
+  console.log('here')
+  this.setState(prevState => ({toggleNav: !prevState.toggleNav}))
+}
 componentDidMount(){
   console.log("here")
 }
 componentDidUpdate(){
-  console.log("here")
+  console.log("here did update")
   if(!localStorage.jwtToken){
       this.props.logoutUser()
   }
@@ -32,8 +36,7 @@ componentDidUpdate(){
     
     return (
       <React.Fragment>
-      
-      <NavBar click ={this.onSubmitLogout}/>
+      <NavBar click ={this.onSubmitLogout} toggleNav ={this.toggleNav} navToggle = {this.state.toggleNav ? "is-active" : ""}/>
       <Switch>
       <Route path="/user" exact component={userInfo} />
       <Route path="/user/user-profile" component={userProfile} />
