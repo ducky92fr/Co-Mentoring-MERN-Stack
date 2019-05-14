@@ -20,8 +20,13 @@ class landingPage extends Component {
 
     static getDerivedStateFromProps(nextProps,prevState){
       if(nextProps.created === true){
-        return {currentModal : "login"}
-      } else{
+        if(prevState.modal === true){
+        return {
+          currentModal : "login"}}
+        else{
+          return {
+            currentModal :"login", modal:true}}
+        } else{
         if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
             return null
       } else {

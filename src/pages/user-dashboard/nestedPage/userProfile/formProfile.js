@@ -34,7 +34,7 @@ const formProfile = (props) => {
         fontAwsome ="far fa-building"
         change ={change}/>
     </InputField>
-    <DropList err1 = {skill1} err2 ={skill2}/>
+    <DropList err1 = {skill1} err2 ={skill2} change = {change} />
     <Upload err = {avatar} selected={fileName ? "Selected file" :"Please choose a file"} fileName ={fileName ? "You have selected " + fileName :null} change ={change}/>
     <hr/>
     <Button  btnName ="Submit your profile" styles ="button is-warning" type ="submit" />

@@ -5,7 +5,6 @@ import InputItems from "../../components/sub-components/inputItems"
 import Modal from "../../components/modal"
 
 const ModalGroup = (props) => {
-  console.log(props.accountCreated)
 const {submit,errors,click,change,currentModal} = props
 const {email,password,password2} = errors
 useEffect(()=> {

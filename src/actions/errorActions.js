@@ -11,6 +11,5 @@ export const getErrors = (err) => {
 export const resetError = () => {
   return {
     type:RESET_ERRROS,
-    payload:{}
   }
 }

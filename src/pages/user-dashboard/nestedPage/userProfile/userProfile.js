@@ -7,8 +7,8 @@ class userProfile extends Component {
     state = {
       firstName: "",
       lastName: "",
-      skill1:"",
       companyCity:"",
+      skill1:"",
       skill2:"",
       skill1level:"",
       skill2level:"",
@@ -23,8 +23,10 @@ class userProfile extends Component {
   } else {
     return {errors:nextProps.errors}
   }}
+  componentDidUpdate(){
+  }
   onChange = (e) =>  {
-    console.log(e.target.files)
+    console.log(e.target.value)
     switch (e.target.name) {
       case 'selectedFile':
       	if(e.target.files.length > 0) {
@@ -42,8 +44,10 @@ class userProfile extends Component {
   }
   onSubmitProfile = (event) => {
     event.preventDefault();
+
   }
   render() {
+    console.log(this.state.skill1)
     return (
     <React.Fragment>
     <div className="columns is-centered is-vertical-center is-mobile  ">
@@ -51,7 +55,7 @@ class userProfile extends Component {
       <hr/>
       <h1 className ="has-text-centered is-size-4 has-text-weight-bold" >Edit Your Profile</h1>
       <Form change = {this.onChange} 
-            submit = {this.onSubmitProfime} 
+            submit = {this.onSubmitProfile} 
             fileName ={this.state.fileName}
             errors ={this.state.errors}/>
       </div>

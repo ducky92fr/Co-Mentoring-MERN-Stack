@@ -6,7 +6,7 @@ const reducer = (state = initialState,action) => {
     case GET_ERRORS:
     return action.payload
     case RESET_ERRROS:
-    return action.payload
+    return {}
     default:
     return state
   }
