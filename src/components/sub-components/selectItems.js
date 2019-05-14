@@ -1,8 +1,8 @@
 import React from "react"
 const selectItems = props => {
   return (
-    <div class="select">
-      <select>
+    <div className="select is-small">
+      <select defaultValue = {props.defaultVal}>
         {props.children}
       </select>
     </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
+import Form from './formProfile.js'
 
 
 class userProfile extends Component {
@@ -9,13 +10,12 @@ class userProfile extends Component {
       skill1:"",
       companyCity:"",
       skill2:"",
-      skill3:"",
       skill1level:"",
       skill2level:"",
-      skill3level:"",
       available:"",
       avatar:"",
       errors: {},
+      fileName:""
   };
   static getDerivedStateFromProps(nextProps,prevState){
     if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
@@ -23,22 +23,40 @@ class userProfile extends Component {
   } else {
     return {errors:nextProps.errors}
   }}
-  onChange = (event) =>  {
-    this.setState({ [event.target.name]: event.target.value });
+  onChange = (e) =>  {
+    console.log(e.target.files)
+    switch (e.target.name) {
+      case 'selectedFile':
+      	if(e.target.files.length > 0) {
+          const splitName = e.target.files[0].name.split('.')
+          let fileName =splitName[0];
+          const extension =splitName[1];
+          if(fileName.length > 10) {fileName = fileName.substring(0,10)}
+          const result = fileName +'.'+ extension
+        	this.setState({ fileName: result });
+        }
+      break;
+      default:
+        this.setState({ [e.target.name]: e.target.value });
+     }
   }
-  onSubmitRegister = (event) => {
+  onSubmitProfile = (event) => {
     event.preventDefault();
   }
   render() {
     return (
+    <React.Fragment>
     <div className="columns is-centered is-vertical-center is-mobile  ">
       <div className="column is-four-fifths-mobile is-half-desktop is-three-quarters-tablet">
+      <hr/>
       <h1 className ="has-text-centered is-size-4 has-text-weight-bold" >Edit Your Profile</h1>
-      <form >
-
-     </form>
-  </div>
-  </div>
+      <Form change = {this.onChange} 
+            submit = {this.onSubmitProfime} 
+            fileName ={this.state.fileName}
+            errors ={this.state.errors}/>
+      </div>
+    </div>
+  </React.Fragment> 
     );
   }
 }

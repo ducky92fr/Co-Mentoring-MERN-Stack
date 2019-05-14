@@ -15,7 +15,7 @@ let content;
 if(currentModal === "login") { 
 content = 
     <form onSubmit ={submit}>
-    <InputField err ={email} >
+    <InputField err ={email} icon = "has-icons-left">
         <InputItems 
           type="email" 
           name ="email" 
@@ -24,7 +24,7 @@ content =
           change ={change} />
     </InputField>
 
-    <InputField err ={password} >
+    <InputField err ={password} icon = "has-icons-left">
         <InputItems 
           type="password" 
           name="password" 
@@ -42,7 +42,7 @@ content =
 if(currentModal === "register") {
   content =(
     <form onSubmit ={submit}>
-     <InputField err ={email} > 
+     <InputField err ={email} icon = "has-icons-left" > 
         <InputItems 
           type="email" 
           name ="email" 
@@ -52,7 +52,7 @@ if(currentModal === "register") {
           change ={change} />
       </InputField>
 
-     <InputField err ={password} > 
+     <InputField err ={password} icon = "has-icons-left" > 
         <InputItems
           type="password" 
           name ="password" 
@@ -62,7 +62,7 @@ if(currentModal === "register") {
           change ={change}/>
     </InputField >
 
-     <InputField err ={password2} >
+     <InputField err ={password2} icon = "has-icons-left" >
         <InputItems 
           type="password" 
           name ="password2" 
@@ -81,5 +81,5 @@ return (
     </Modal>
   )
 }
-export default React.memo(ModalGroup)
+export default React.memo(ModalGroup) 
 
