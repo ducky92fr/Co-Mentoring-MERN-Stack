@@ -1,5 +1,5 @@
 import React from 'react'
-// import Button from "../../../../components/sub-components/button"
+import Button from "../../../../components/sub-components/button"
 import InputField from "../../../../components/inputField"
 import InputItems from "../../../../components/sub-components/inputItems"
 import DropList from './dropdown-select'
@@ -30,12 +30,14 @@ const formProfile = (props) => {
     <InputItems 
         type="text" 
         name ="companyCity" 
-        placeholder ="Please enter your working place" 
+        placeholder ="Please enter your living city" 
         fontAwsome ="far fa-building"
         change ={change}/>
     </InputField>
     <DropList err1 = {skill1} err2 ={skill2}/>
     <Upload err = {avatar} selected={fileName ? "Selected file" :"Please choose a file"} fileName ={fileName ? "You have selected " + fileName :null} change ={change}/>
+    <hr/>
+    <Button  btnName ="Submit your profile" styles ="button is-warning" type ="submit" />
   </form>
   )
 }
