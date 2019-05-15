@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
-import {submitProfile} from '../../../../actions/profileActions'
+import {submitProfile,getProfile} from '../../../../actions/profileActions'
 import InputField from '../../../../components/inputField'
 import InputItems from '../../../../components/sub-components/inputItems'
 import Select from '../../../../components/sub-components/selectItems'
 import Upload from './uploadFile'
 import Button from '../../../../components/sub-components/button'
 import {resetError} from '../../../../actions/errorActions'
-import {removeMessageCreated} from '../../../../actions/profileActions'
+import {removeMessageCreated,fetchCurrentUser} from '../../../../actions/profileActions'
+import axios from "axios";
+import store from '../../../../store/store'
+
 class userProfile extends Component {
     state = {
       firstName: "",
@@ -29,15 +32,27 @@ class userProfile extends Component {
       }
     }
 
-  componentDidMount(){
-
+   componentDidMount(){
+    axios
+    .get("/api/profiles/getprofile")
+    .then(res => {
+      store.dispatch(getProfile(res))
+      const result = {...res.data.profile}
+      this.setState({
+        firstName:result.firstName
+      })
+      })
+    .catch(err => console.log(err)
+    )
   }
   componentWillUnmount(){
     this.props.resetError()
     this.props.resetMessage()
+    this.props.fetchCurrentUser()
+  
   }
   componentDidUpdate(){
-    console.log("here inside userProfile")
+    console.log("here inside userProfile updated")
   }
   onChange = (e) =>  {
     console.log(e.target.value)
@@ -58,6 +73,8 @@ class userProfile extends Component {
   }
   onSubmitProfile = (event) => {
     event.preventDefault();
+    // const {firstName,lastName,companyCity} = this.props.profileDetails.profile
+    this.props.resetError()
     const data = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -68,9 +85,12 @@ class userProfile extends Component {
       skill2Level:this.state.skill2Level
     };
     this.props.submitProfile(data)
+    
   }
 
   render() {
+    const result = {...this.props.profileDetails.profile}
+    const {firstName,lastName,available,avatar,competencies,companyCity,_id} = result
     const {errors,fileName} = this.state
     return (
       <div className="columns is-centered is-vertical-center is-mobile ">
@@ -161,12 +181,14 @@ return{
  isAuth:state.auth,
  errors:state.errors,
  profileCreated : state.postCreatedProfile.profileCreated,
- message:state.postCreatedProfile.message
+ message:state.postCreatedProfile.message,
+ profileDetails:state.postCreatedProfile.profileDetails
 }}
 const mapDispatchToProps =  dispatch => {
   return{
     submitProfile : (data) => dispatch(submitProfile(data)),
     resetError : () => dispatch(resetError()),
-    resetMessage : () => dispatch(removeMessageCreated())
+    resetMessage : () => dispatch(removeMessageCreated()),
+    fetchCurrentUser:() => dispatch(fetchCurrentUser())
 }}
 export default connect(mapStateToProps,mapDispatchToProps)(userProfile)

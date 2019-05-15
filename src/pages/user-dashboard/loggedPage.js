@@ -4,7 +4,7 @@ import NavBar from './navbar'
 import userProfile from "../user-dashboard/nestedPage/userProfile/userProfile"
 import userChat from './nestedPage/userChat'
 import userSearch from './nestedPage/userSearch'
-import userInfo from './nestedPage/userInfor'
+import userInfo from './nestedPage/userInfo/userInfor'
 import {connect} from 'react-redux'
 import Aux from '../../components/hoc/Aux'
 import {logoutUser} from '../../actions/authActions'

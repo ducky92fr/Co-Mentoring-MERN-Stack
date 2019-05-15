@@ -1,9 +1,10 @@
-import {PROFILE_CREATED, ISHASPROFILE,REMOVE_MESSAGE_PROFILE} from '../actions/types'
+import {PROFILE_CREATED, ISHASPROFILE,REMOVE_MESSAGE_PROFILE,GET_PROFILE} from '../actions/types'
 import isEmpty from '../validation/isEmp'
 
 const initialState ={
   profileCreated :false,
-  message:""
+  message:"",
+  profileDetails:{}
 }
 
 const reducer = (state = initialState,action) => {
@@ -23,6 +24,11 @@ const reducer = (state = initialState,action) => {
     return {
       ...state,
       message:""
+    }
+    case GET_PROFILE:
+    return {
+      ...state,
+      profileDetails:action.payload
     }
     default:
     return state

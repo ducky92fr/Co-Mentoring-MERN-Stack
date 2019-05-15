@@ -16,9 +16,7 @@ if(localStorage.jwtToken){
   const decoded =jwt_decode(localStorage.jwtToken)
   //Set user and is authenticated
   store.dispatch(setCurrentUser(decoded))
-  console.log("here in APP")
   if(localStorage.isHasProfile){
-    console.log("here in APP ")
     store.dispatch(hasProfile(true))
   }
 }

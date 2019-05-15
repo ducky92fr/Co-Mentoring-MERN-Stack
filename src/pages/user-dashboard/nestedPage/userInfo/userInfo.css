@@ -1,0 +1,15 @@
+.box_container{
+  border:1px solid black;
+  border-radius: 5px;
+  height: 30vh;
+  margin-bottom:10px;
+  background-color: dodgerblue
+}
+.container_content{
+  display:flex;
+  justify-content: space-between
+}
+.btn_group{
+  margin: 0 auto;
+  width:30%
+}
