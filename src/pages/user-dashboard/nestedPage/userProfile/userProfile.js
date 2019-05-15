@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
-import {submitProfile,getProfile} from '../../../../actions/profileActions'
+import {submitProfile} from '../../../../actions/profileActions'
 import InputField from '../../../../components/inputField'
 import InputItems from '../../../../components/sub-components/inputItems'
 import Select from '../../../../components/sub-components/selectItems'
@@ -8,8 +8,6 @@ import Upload from './uploadFile'
 import Button from '../../../../components/sub-components/button'
 import {resetError} from '../../../../actions/errorActions'
 import {removeMessageCreated,fetchCurrentUser} from '../../../../actions/profileActions'
-import axios from "axios";
-import store from '../../../../store/store'
 
 class userProfile extends Component {
     state = {
@@ -33,23 +31,20 @@ class userProfile extends Component {
     }
 
    componentDidMount(){
-    axios
-    .get("/api/profiles/getprofile")
-    .then(res => {
-      store.dispatch(getProfile(res))
-      const result = {...res.data.profile}
-      this.setState({
-        firstName:result.firstName
-      })
-      })
-    .catch(err => console.log(err)
-    )
+     console.log("user profile did mount")
+   if(!this.props.profileDetails.message){
+     const result = {...this.props.profileDetails.profile}
+     this.setState({
+       firstName:result.firstName,
+       lastName:result.lastName,
+       companyCity:result.companyCity,
+     })
+   }
   }
   componentWillUnmount(){
     this.props.resetError()
     this.props.resetMessage()
     this.props.fetchCurrentUser()
-  
   }
   componentDidUpdate(){
     console.log("here inside userProfile updated")
@@ -89,8 +84,6 @@ class userProfile extends Component {
   }
 
   render() {
-    const result = {...this.props.profileDetails.profile}
-    const {firstName,lastName,available,avatar,competencies,companyCity,_id} = result
     const {errors,fileName} = this.state
     return (
       <div className="columns is-centered is-vertical-center is-mobile ">

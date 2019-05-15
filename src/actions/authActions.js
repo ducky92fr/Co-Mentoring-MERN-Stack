@@ -5,6 +5,7 @@ import axios from "axios";
 import setAuthToken from '../utils/setHeaders'
 import jwt_decode from 'jwt-decode'
 import {resetCreated} from './postSignUp'
+import {fetchCurrentUser,resetProfileState} from './profileActions'
 // Register 
 export const registerUser = userData=> dispatch => {
   axios
@@ -34,6 +35,7 @@ export const loginUser = (userData,history) => dispatch => {
       // Current user
       dispatch(setCurrentUser(decoded))
       dispatch(resetCreated())
+      dispatch(fetchCurrentUser())
       history.replace("/user")})
       .catch(err => {
         console.log(err.response.data.errors) 
@@ -55,6 +57,5 @@ export const loginUser = (userData,history) => dispatch => {
       localStorage.removeItem('isHasProfile')
       setAuthToken(false);
       dispatch(setCurrentUser({}))
+      dispatch(resetProfileState())
     }
-
-

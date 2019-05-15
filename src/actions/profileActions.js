@@ -1,5 +1,5 @@
 import {getErrors} from  './errorActions'
-import {PROFILE_CREATED,ISHASPROFILE,REMOVE_MESSAGE_PROFILE,GET_PROFILE} from './types'
+import {PROFILE_CREATED,ISHASPROFILE,REMOVE_MESSAGE_PROFILE,GET_PROFILE,RESET_STATE_PROFILE} from './types'
 import axios from "axios";
 
 
@@ -43,10 +43,15 @@ export const fetchCurrentUser = () => dispatch => {
  axios
  .get("/api/profiles/getprofile")
  .then(res => {
-  return dispatch(getProfile(res))
- })
+  if(res.status === 201){
+    return dispatch(getProfile(res))
+  }else {
+    return null
+  }
+ }) 
  .catch(err => {
-  console.log(err.response)}
+   console.log(err.response)
+  console.log("HELLO BABY")}
   );
 }
 
@@ -58,3 +63,9 @@ export const getProfile = (res) => {
       payload:res.data
     }
   }
+
+export const resetProfileState =()=> {
+  return {
+    type: RESET_STATE_PROFILE
+  }
+}

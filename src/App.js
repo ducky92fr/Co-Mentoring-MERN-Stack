@@ -5,8 +5,9 @@ import {connect} from 'react-redux'
 import { Route,Redirect,Switch } from "react-router-dom"
 import jwt_decode from 'jwt-decode';
 import {setCurrentUser} from './actions/authActions'
-import {hasProfile} from './actions/profileActions'
+import {hasProfile,fetchCurrentUser} from './actions/profileActions'
 import store from './store/store';
+import setAuthToken from './utils/setHeaders'
 // import userProfile from './pages/user-dashboard/userprofile/userProfile'
 
 // Persist state
@@ -15,13 +16,22 @@ if(localStorage.jwtToken){
   //decode token and get user infor
   const decoded =jwt_decode(localStorage.jwtToken)
   //Set user and is authenticated
+  setAuthToken(localStorage.jwtToken)
   store.dispatch(setCurrentUser(decoded))
+
   if(localStorage.isHasProfile){
     store.dispatch(hasProfile(true))
   }
 }
 
 class App extends Component {
+  componentDidMount(){
+    console.log("App did mount")
+    store.dispatch(fetchCurrentUser())
+  }
+  componentDidUpdate(){
+    console.log("App did Update")
+  }
   render(){
   const {isAuth} = this.props.isAuth
   return (
