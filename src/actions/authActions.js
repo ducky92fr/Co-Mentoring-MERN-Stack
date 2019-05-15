@@ -40,9 +40,6 @@ export const loginUser = (userData,history) => dispatch => {
        return dispatch(getErrors(err))
       })
     }
-
-
-
     //Set Logged in user
 
     export const setCurrentUser = decoded => {
@@ -52,10 +49,10 @@ export const loginUser = (userData,history) => dispatch => {
       }
     }
 
-
     //logout
     export const logoutUser = () => dispatch => {
       localStorage.removeItem('jwtToken')
+      localStorage.removeItem('isHasProfile')
       setAuthToken(false);
       dispatch(setCurrentUser({}))
     }

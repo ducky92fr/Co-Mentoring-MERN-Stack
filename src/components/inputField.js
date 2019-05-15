@@ -7,6 +7,7 @@ const inputField = props => {
       {props.children}
     </div>
     {props.err ? <p className="help is-danger">{props.err}</p> :null}
+    {props.err1? <p className="help is-danger">{props.err1}</p> :null}
     </div>
   )}
 export default inputField

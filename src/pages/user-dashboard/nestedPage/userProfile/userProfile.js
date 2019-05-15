@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
-import Form from './formProfile.js'
-
-
+import {submitProfile} from '../../../../actions/profileActions'
+import InputField from '../../../../components/inputField'
+import InputItems from '../../../../components/sub-components/inputItems'
+import Select from '../../../../components/sub-components/selectItems'
+import Upload from './uploadFile'
+import Button from '../../../../components/sub-components/button'
+import {resetError} from '../../../../actions/errorActions'
+import {removeMessageCreated} from '../../../../actions/profileActions'
 class userProfile extends Component {
     state = {
       firstName: "",
@@ -10,20 +15,29 @@ class userProfile extends Component {
       companyCity:"",
       skill1:"",
       skill2:"",
-      skill1level:"",
-      skill2level:"",
+      skill1Level:"",
+      skill2Level:"",
       available:"",
-      avatar:"",
       errors: {},
       fileName:""
   };
   static getDerivedStateFromProps(nextProps,prevState){
     if(JSON.stringify(nextProps.errors) === JSON.stringify(prevState.errors)){
-      return null
-  } else {
-    return {errors:nextProps.errors}
-  }}
+          return null
+      } else {
+        return {errors:nextProps.errors}
+      }
+    }
+
+  componentDidMount(){
+
+  }
+  componentWillUnmount(){
+    this.props.resetError()
+    this.props.resetMessage()
+  }
   componentDidUpdate(){
+    console.log("here inside userProfile")
   }
   onChange = (e) =>  {
     console.log(e.target.value)
@@ -44,35 +58,115 @@ class userProfile extends Component {
   }
   onSubmitProfile = (event) => {
     event.preventDefault();
-
+    const data = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      companyCity: this.state.companyCity,
+      skill1:this.state.skill1,
+      skill2:this.state.skill2,
+      skill1Level:this.state.skill1Level,
+      skill2Level:this.state.skill2Level
+    };
+    this.props.submitProfile(data)
   }
+
   render() {
-    console.log(this.state.skill1)
+    const {errors,fileName} = this.state
     return (
-    <React.Fragment>
-    <div className="columns is-centered is-vertical-center is-mobile  ">
+      <div className="columns is-centered is-vertical-center is-mobile ">
       <div className="column is-four-fifths-mobile is-half-desktop is-three-quarters-tablet">
       <hr/>
       <h1 className ="has-text-centered is-size-4 has-text-weight-bold" >Edit Your Profile</h1>
-      <Form change = {this.onChange} 
-            submit = {this.onSubmitProfile} 
-            fileName ={this.state.fileName}
-            errors ={this.state.errors}/>
-      </div>
+      {this.props.message? <p className="help is-danger">{this.props.message}</p> :null}
+      <form onSubmit={this.onSubmitProfile}>
+      <InputField err ={errors.firstName} icon = "has-icons-left" label ="Your first name">
+        <InputItems 
+        type="text" 
+        name ="firstName" 
+        placeholder ="Please enter your first name" 
+        fontAwsome =" fas fa-user"
+        value={this.state.firstName || ""}
+        change ={this.onChange} />
+    </InputField>
+
+    <InputField err ={errors.lastName} icon = "has-icons-left" label ="Your last name">
+    <InputItems 
+        type="text" 
+        name ="lastName" 
+        placeholder ="Please enter your last name" 
+        fontAwsome =" fas fa-user" 
+        value={this.state.lastName || ""}
+        change ={this.onChange} />
+    </InputField>
+    <InputField err ={errors.companyCity} icon = "has-icons-left" label ="Your living city">
+    <InputItems 
+        type="text" 
+        name ="companyCity" 
+        placeholder ="Please enter your living city" 
+        fontAwsome ="far fa-building"
+        value={this.state.companyCity || ""}
+        change ={this.onChange}/>
+    </InputField>
+    <InputField err ={errors.skill1} err1 ={errors.skillDiff} label ="Your first skill">
+        <Select defaultVal ="DEFAULT" name = "skill1" change ={this.onChange}>
+            <option value ="DEFAULT" disabled>Select an option</option>
+            <option value ="NodeJs" >NodeJs</option>
+            <option value ="Javascript" >Javascript</option>
+            <option value ="Express" >Express</option>
+            <option value ="Java" >Java</option>
+        </Select>
+        <Select defaultVal ="DEFAULT" name ="skill1Level" change ={this.onChange}>
+            <option value ="DEFAULT" disabled>Your Level</option>
+            <option value ="1" >Beginner</option>
+            <option value ="2" >Intermediate</option>
+            <option value ="3" >Advanced</option>
+        </Select>
+    </InputField>
+
+    <InputField err ={errors.skill2} err1 ={errors.skillDiff} label ="Your second skill">
+    <Select defaultVal ="DEFAULT" name ="skill2" change ={this.onChange}>
+        <option value ="DEFAULT" disabled>Select an option</option>
+        <option value ="NodeJs" >NodeJs</option>
+        <option value ="Javascript" >Javascript</option>
+            <option value ="Express" >Express</option>
+            <option value ="Java" >Java</option>
+    </Select>
+    <Select defaultVal ="DEFAULT" name ="skill2Level" change ={this.onChange}>
+        <option value ="DEFAULT" disabled>Your Level</option>
+        <option value ="1" >Beginner</option>
+        <option value ="2" >Intermediate</option>
+        <option value ="3" >Advanced</option>
+      </Select>
+    </InputField>
+      <InputField label ="Your status">
+      <Select defaultVal ="DEFAULT" name="available" change ={this.onChange}>
+        <option value ="DEFAULT" disabled>Select an option</option>
+        <option value ="true" >Available</option>
+        <option value ="false" >Not availalbe</option>
+      </Select>
+      </InputField>
+      <Upload selected={fileName ? "Selected file" :"Please choose a file"} fileName ={fileName ? "You have selected " + fileName :null} change ={this.onChange}/>
+      <hr/>
+      <Button  btnName ="Submit your profile" styles ="button is-warning" type ="submit" />
+    </form>
     </div>
-  </React.Fragment> 
-    );
-  }
-}
+    </div>
+    )
+      
+  }}
+
+
 const mapStateToProps = (state) => {
 return{
  isAuth:state.auth,
- errors:state.errors
+ errors:state.errors,
+ profileCreated : state.postCreatedProfile.profileCreated,
+ message:state.postCreatedProfile.message
 }}
 const mapDispatchToProps =  dispatch => {
   return{
-
+    submitProfile : (data) => dispatch(submitProfile(data)),
+    resetError : () => dispatch(resetError()),
+    resetMessage : () => dispatch(removeMessageCreated())
 }}
-
-export default connect(mapStateToProps,mapDispatchToProps)(userProfile);
-
+export default connect(mapStateToProps,mapDispatchToProps)(userProfile)

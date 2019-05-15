@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import { Route,Redirect,Switch } from "react-router-dom"
 import jwt_decode from 'jwt-decode';
 import {setCurrentUser} from './actions/authActions'
+import {hasProfile} from './actions/profileActions'
 import store from './store/store';
 // import userProfile from './pages/user-dashboard/userprofile/userProfile'
 
@@ -15,6 +16,11 @@ if(localStorage.jwtToken){
   const decoded =jwt_decode(localStorage.jwtToken)
   //Set user and is authenticated
   store.dispatch(setCurrentUser(decoded))
+  console.log("here in APP")
+  if(localStorage.isHasProfile){
+    console.log("here in APP ")
+    store.dispatch(hasProfile(true))
+  }
 }
 
 class App extends Component {

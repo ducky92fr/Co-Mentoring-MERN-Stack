@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch,Redirect } from "react-router-dom";
 import NavBar from './navbar'
-import userProfile from './nestedPage/userProfile/userProfile'
+import userProfile from "../user-dashboard/nestedPage/userProfile/userProfile"
 import userChat from './nestedPage/userChat'
 import userSearch from './nestedPage/userSearch'
 import userInfo from './nestedPage/userInfor'
@@ -14,24 +14,23 @@ class userLogin extends Component {
     state = {
       toggleNav: false
     };
-  onSubmitLogout = (event) => {
+onSubmitLogout = (event) => {
     event.preventDefault();
     this.props.logoutUser()
+
   }
 toggleNav = () => {
   this.setState(prevState => ({toggleNav: !prevState.toggleNav}))
 }
-componentDidMount(){
-}
-componentDidUpdate(){
 
+componentDidUpdate(){
   if(!localStorage.jwtToken){
       this.props.logoutUser()
   }
 }
   render() {
     let hasProfile = null
-   if(this.props.isAuth.user.hasProfile) {
+   if(this.props.isAuth.user.hasProfile || this.props.profileCreated) {
      hasProfile = (<Aux>
       <Route path="/user" exact component={userInfo} />
       <Route path="/user/user-chat" component={userChat} />
@@ -58,11 +57,11 @@ componentDidUpdate(){
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return{
    isAuth:state.auth,
-   errors:state.errors
+   errors:state.errors,
+   profileCreated : state.postCreatedProfile.profileCreated
   }}
   const mapDispatchToProps =  dispatch => {
     return{
