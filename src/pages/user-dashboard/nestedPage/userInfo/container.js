@@ -1,5 +1,4 @@
 import React from "react";
-import ButtonGroup from './button_group'
 const container = (props) => { 
   return (
     <div className = "box_container">
@@ -9,8 +8,6 @@ const container = (props) => {
     </div>
     <div>{props.message}</div> 
     {props.children}
-   
-    
   </div>
   )
 }

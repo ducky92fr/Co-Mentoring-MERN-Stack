@@ -6,9 +6,9 @@ class userInfo extends Component {
   render(){
   return (
    <React.Fragment>
-     <hr/>
-    <div className=" columns is-desktop is-centered">
-      <div className="column is-one-third ">
+  
+    <div className=" columns is-mobile is-multiline is-centered">
+      <div className="column is-one-third-desktop is-four-fifths-mobile ">
          <div className="red has-background-warning">
           <div className="columns is-desktop">
             <div className="column">
@@ -16,7 +16,7 @@ class userInfo extends Component {
               <figure className="image is-128x128 btn_group">
                 <img src="https://www.mariowiki.com/images/thumb/9/94/MushroomMarioKart8.png/1200px-MushroomMarioKart8.png"/>
               </figure>
-              <div className ="container_content btn_group">
+              <div className ="container_content btn_group ">
                 <div>Medal Bronze</div>
                 <div>Medal Gold</div>
                 </div>
@@ -29,7 +29,7 @@ class userInfo extends Component {
           </div>
       </div>
       </div>
-      <div className="column is-two-fifths">
+      <div className="column is-two-fifths-desktop is-four-fifths-mobile is-two-thirds-tablet">
          <div className="green ">
           <div className="columns is-desktop">
             <div className="column">
