@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
 import {submitProfile} from '../../../../actions/profileActions'
+import {removeMessageCreated,fetchCurrentUser} from '../../../../actions/profileActions'
 import InputField from '../../../../components/inputField'
 import InputItems from '../../../../components/sub-components/inputItems'
 import Select from '../../../../components/sub-components/selectItems'
 import Upload from './uploadFile'
 import Button from '../../../../components/sub-components/button'
 import {resetError} from '../../../../actions/errorActions'
-import {removeMessageCreated,fetchCurrentUser} from '../../../../actions/profileActions'
+
 
 class userProfile extends Component {
     state = {

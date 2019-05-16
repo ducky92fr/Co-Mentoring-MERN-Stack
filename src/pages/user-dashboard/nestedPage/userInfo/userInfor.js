@@ -2,9 +2,33 @@ import React, { Component } from "react";
 import Container from "./container";
 import ButtonGroup from "./button_group";
 import "./userInfo.css";
-
+import {connect} from 'react-redux'
+import {submitProfile} from '../../../../actions/profileActions'
+import {removeMessageCreated,fetchCurrentUser} from '../../../../actions/profileActions'
 class userInfo extends Component {
+  state = {
+    firstName :"",
+    lastName :"",
+    avatar:"",
+    skill1: "",
+    skill2:"",
+    companyCity:""
+  }
+  // static getDerivedStateFromProps(nextProps,prevState){
+  //  console.log(nextProps)
+  //   }
+  componentDidMount(){
+    this.props.fetchCurrentUser()
+  }
   render() {
+    const user = {...this.props.userDetails}
+    let skill =null
+    console.log(user)
+    if(Object.keys(user).length > 0){
+      skill = user.profile.competencies.map(el => Object.keys(el)[0])
+      console.log(skill)
+    }
+    
     return (
       <React.Fragment>
         <div className="hero-body ">
@@ -16,12 +40,12 @@ class userInfo extends Component {
 
         <div className=" columns is-mobile is-multiline is-centered">
           <div className="column is-one-third-desktop is-four-fifths-mobile ">
-            <div className="user_dashboard has-background-grey-lighter">
+            <div className="user_dashboard">
               <div className="columns is-desktop">
                 <div className="column">
                   <div className ="content_column">
                     <figure className="image is-128x128 btn_group">
-                      <img alt ="avatar "src="https://www.mariowiki.com/images/thumb/9/94/MushroomMarioKart8.png/1200px-MushroomMarioKart8.png" />
+                      <img alt ="avatar "src={user.profile ? user.profile.avatar : null } />
                     </figure>
                     <div className="container_content btn_group ">
                       <div className ="medal_container">
@@ -34,9 +58,12 @@ class userInfo extends Component {
                         <i className="fas fa-award">15</i>
                       </div>
                     </div>
-                    <div>Name</div>
-                    <div>Last Name</div>
-                    <div>Skills</div>
+                    <div>First name : {user.profile ? user.profile.firstName : null }</div>
+                    <div>Last name : {user.profile ? user.profile.lastName : null}</div>
+                    <div>Living City : {user.profile ? user.profile.companyCity : null}</div>
+                    <div>
+                      Skills: {skill ? skill[0] + " and " + skill[1] : null } 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -115,4 +142,18 @@ class userInfo extends Component {
     );
   }
 }
-export default userInfo;
+
+const mapStateToProps = (state) => {
+  return{
+   isAuth:state.auth,
+   errors:state.errors,
+   profileCreated : state.postCreatedProfile.profileCreated,
+   userDetails : state.postCreatedProfile.profileDetails
+  }}
+  const mapDispatchToProps =  dispatch => {
+    return{
+      submitProfile : (data) => dispatch(submitProfile(data)),
+      fetchCurrentUser:() => dispatch(fetchCurrentUser())
+  }}
+
+export default connect(mapStateToProps,mapDispatchToProps)(userInfo);

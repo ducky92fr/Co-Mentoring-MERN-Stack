@@ -50,7 +50,6 @@ connectHandler = e => {
       const skill2 = keyObject[1]
       return <Card key={key} userID={userID} avatar = {avatar} click ={this.connectHandler} fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
     })
-
     return (
       <React.Fragment>
       <div className="columns is-centered is-mobile" id="search-bar">
