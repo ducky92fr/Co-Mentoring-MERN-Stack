@@ -39,6 +39,16 @@
   height: 40px;
   background-color: #3273dc;
 }
+
+.btn-disable
+        {
+        cursor: not-allowed;
+
+        /*Button disabled - CSS color class*/
+        color: red;
+        background-color: grey;
+
+        }
 img{
   max-height:100%;
   max-width: 100%;

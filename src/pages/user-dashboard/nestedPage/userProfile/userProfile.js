@@ -33,14 +33,14 @@ class userProfile extends Component {
 
    componentDidMount(){
      console.log("user profile did mount")
-   if(!this.props.profileDetails.message){
      const result = {...this.props.profileDetails.profile}
+     console.log(result)
      this.setState({
        firstName:result.firstName,
        lastName:result.lastName,
        companyCity:result.companyCity,
      })
-   }
+
   }
   componentWillUnmount(){
     this.props.resetError()
@@ -109,7 +109,7 @@ class userProfile extends Component {
         name ="lastName" 
         placeholder ="Please enter your last name" 
         fontAwsome =" fas fa-user" 
-        value={this.state.lastName || ""}
+        value={this.state.lastName || "" }
         change ={this.onChange} />
     </InputField>
     <InputField err ={errors.companyCity} icon = "has-icons-left" label ="Your living city">

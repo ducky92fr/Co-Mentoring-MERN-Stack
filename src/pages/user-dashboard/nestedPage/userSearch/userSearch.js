@@ -2,12 +2,15 @@ import React,{Component} from "react";
 import './userSearch.css'
 import Card from './cardInfo'
 import axios from "axios";
+import {connect} from 'react-redux'
+import {fetchCurrentUser} from '../../../../actions/profileActions'
 
 class userSearch extends Component { 
   state = {
     searchInput :"",
     result:[],
-    message:""
+    message:"",
+    fullNameSent:""
   }
 
   onChangeHandler = e => {
@@ -21,7 +24,8 @@ class userSearch extends Component {
     .then(res => {
       console.log(res)
     return this.setState({
-      result :[...res.data]
+      result :[...res.data],
+      fullNameSent:this.props.profileDetails.profile.firstName + " " + this.props.profileDetails.profile.lastName
     })
   }
     )
@@ -31,15 +35,19 @@ capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 connectHandler = e => {
+  e.target.textContent ="Sent"
+  e.target.classList.add("btn-disable")
   axios
-  .post(`/api/connect/send?user_id=${e.target.value}`)
-  .then(res => this.setState({message:"Request Sent"}))
+  .post(`/api/connect/send?user_id=${e.target.value}&fullNameRece=${e.target.getAttribute('namesent')}&fullNameSent=${this.state.fullNameSent}`)
+  .then(res => 
+    this.setState({message:"Request Sent"}))
   .catch(err => console.log(err))
 }
 
   render(){
     console.log(this.state.result)
     let listUser = this.state.result.map(user => {
+      console.log(user)
       const city = user.profileDetails.companyCity
       const key = user.userArray.profileID
       const keyObject =user.profileDetails.competencies.map(el =>  Object.keys(el)[0])
@@ -48,7 +56,7 @@ connectHandler = e => {
       const fullName = user.profileDetails.firstName + " " + user.profileDetails.lastName
       const skill1 = keyObject[0]
       const skill2 = keyObject[1]
-      return <Card key={key} userID={userID} avatar = {avatar} click ={this.connectHandler} fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
+      return <Card key={key} userID={userID} namesent ={fullName} avatar = {avatar} click ={this.connectHandler}  fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
     })
     return (
       <React.Fragment>
@@ -77,4 +85,16 @@ connectHandler = e => {
     )
   }
 }
-export default userSearch
+const mapStateToProps = (state) => {
+  return{
+   isAuth:state.auth,
+   errors:state.errors,
+   profileCreated : state.postCreatedProfile.profileCreated,
+   message:state.postCreatedProfile.message,
+   profileDetails:state.postCreatedProfile.profileDetails
+  }}
+  const mapDispatchToProps =  dispatch => {
+    return{
+      fetchCurrentUser:() => dispatch(fetchCurrentUser())
+  }}
+export default connect(mapStateToProps,mapDispatchToProps)(userSearch)

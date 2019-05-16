@@ -1,9 +1,9 @@
 .box_container{
-  border:1px solid black;
+  border:1px solid #209cee;
   border-radius: 5px;
-  height: 30vh;
+  height: 40vh;
   margin-bottom:10px;
-  background-color: dodgerblue
+  background-color: white
 }
 .container_content{
   display:flex;
@@ -15,8 +15,9 @@
 }
 
 .user_dashboard{
-  border:1px solid black;
+  border:1px solid #209cee;
   border-radius:3px;
+  height:40vh;
 }
 .medal_container {
 display: flex;
@@ -27,4 +28,18 @@ align-items: center;
 
 .content_column{
   padding: 10px 10px;
+}
+.card_user{
+  margin-bottom: 1px;
+  border-radius:5px;
+  height: 10vh;
+  display:flex;
+  justify-content: space-between;
+  background-color: #fdfbfb;
+}
+.btn_grp{
+  border-radius: 6px;
+  color:white;
+  border:1px solid;
+  height: 30px;
 }
