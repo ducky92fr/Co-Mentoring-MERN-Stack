@@ -1,41 +1,71 @@
 import React,{Component} from "react";
 import './userSearch.css'
 import Card from './cardInfo'
+import axios from "axios";
 
 class userSearch extends Component { 
   state = {
-    searchInput :""
+    searchInput :"",
+    result:[]
   }
 
   onChangeHandler = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
   onSubmitHandler = (event) => {
-    event.preventDefault()
-    
+    event.preventDefault();
+    const query = this.capitalizeFirstLetter(this.state.searchInput)
+    axios
+    .get(`api/search/skill?q=${query}`)
+    .then(res => {
+      console.log(res)
+    return this.setState({
+      result :[...res.data]
+    })
   }
+    )
+    .catch(err => console.log(err))
+  }
+  capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
   render(){
-    console.log(this.state.searchInput)
+    console.log(this.state.result)
+    let listUser = this.state.result.map(user => {
+      const city = user.profileDetails.companyCity
+      const key = user.userArray.profileID
+      const keyObject =user.profileDetails.competencies.map(el =>  Object.keys(el)[0])
+      console.log(keyObject)
+      const avatar = user.profileDetails.avatar
+      const fullName = user.profileDetails.firstName + " " + user.profileDetails.lastName
+      const skill1 = keyObject[0]
+      const skill2 = keyObject[1]
+      return <Card key={key}  avatar = {avatar} fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
+    })
+    console.log(listUser)
+
     return (
       <React.Fragment>
       <div className="columns is-centered is-mobile" id="search-bar">
       <div className="column is-three-quarters-mobile is-half-desktop is-three-quarters-tablet">
       <hr/>
+      <form onSubmit = {this.onSubmitHandler}>
       <div className ="group-items">
-      <input type="text" name ="searchInput" class="input is-info is-medium" placeholder="Search your mentor" onChange ={this.onChangeHandler}/>
-      <button className="button is-medium">Search</button>
+      <input type="text" name ="searchInput" className="input is-info is-medium" placeholder="Search your mentor" onChange ={this.onChangeHandler}/>
+      <button className="button is-medium" type = "submit">Search</button>
       </div>
+      </form>
        <hr/>
       </div>
       </div>
     
     <div className="columns is-centered is-mobile" id="search-bar">
       <div className="column is-full-mobile is-half-desktop is-three-quarters-tablet">
-      <Card/>
+      {listUser}
       </div>
 
-    
-    
+
       </div>
   </React.Fragment>
     )

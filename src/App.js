@@ -8,6 +8,7 @@ import {setCurrentUser} from './actions/authActions'
 import {hasProfile,fetchCurrentUser} from './actions/profileActions'
 import store from './store/store';
 import setAuthToken from './utils/setHeaders'
+import PageNotFound from './pages/404Page/404Page'
 // import userProfile from './pages/user-dashboard/userprofile/userProfile'
 
 // Persist state
@@ -39,6 +40,7 @@ class App extends Component {
       <Switch>
       <Route exact path="/" component={LandingPage} />
       {isAuth ? <Route path="/user" component={UserLogin}/> : <Redirect from = "/user" to ="/"/> }
+      <Route component={PageNotFound}/>
       </Switch>
     </div>
   );

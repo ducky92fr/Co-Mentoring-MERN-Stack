@@ -7,7 +7,7 @@
 }
 .container_content{
   display:flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 .btn_group{
   margin: 0 auto;
@@ -17,4 +17,14 @@
 .user_dashboard{
   border:1px solid black;
   border-radius:3px;
+}
+.medal_container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.content_column{
+  padding: 10px 10px;
 }

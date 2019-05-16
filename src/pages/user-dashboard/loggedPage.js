@@ -8,6 +8,7 @@ import userInfo from './nestedPage/userInfo/userInfor'
 import {connect} from 'react-redux'
 import Aux from '../../components/hoc/Aux'
 import {logoutUser} from '../../actions/authActions'
+// import PageNotFound from '../404Page/404Page'
 import './loggedPage.css'
 
 class userLogin extends Component {
@@ -35,6 +36,7 @@ componentDidUpdate(){
       <Route path="/user" exact component={userInfo} />
       <Route path="/user/user-chat" component={userChat} />
       <Route path ="/user/user-search" component ={userSearch}/>
+      {/* <Route path ="/user/:id" component={PageNotFound}/> */}
     </Aux>)
    } else {
      hasProfile =(
@@ -42,6 +44,7 @@ componentDidUpdate(){
          <Redirect from = "/user" to ="/user/user-profile"/>
          <Redirect from = "/user/user-chat" to ="/user/user-profile"/>
          <Redirect from = "/user/user-search" to ="/user/user-profile"/>
+         
        </Aux>
      )
    }
@@ -51,7 +54,6 @@ componentDidUpdate(){
       <Switch>
       <Route path="/user/user-profile" component={userProfile} />
       {hasProfile}
-      }
       </Switch>
     </React.Fragment>
     );

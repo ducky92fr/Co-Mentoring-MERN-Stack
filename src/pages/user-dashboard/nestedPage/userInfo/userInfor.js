@@ -19,17 +19,18 @@ class userInfo extends Component {
             <div className="user_dashboard has-background-grey-lighter">
               <div className="columns is-desktop">
                 <div className="column">
-                  <div>
+                  <div className ="content_column">
                     <figure className="image is-128x128 btn_group">
-                      <img src="https://www.mariowiki.com/images/thumb/9/94/MushroomMarioKart8.png/1200px-MushroomMarioKart8.png" />
+                      <img alt ="avatar "src="https://www.mariowiki.com/images/thumb/9/94/MushroomMarioKart8.png/1200px-MushroomMarioKart8.png" />
                     </figure>
                     <div className="container_content btn_group ">
-                      <div>
-                        Silver Medal
+                      <div className ="medal_container">
+                        <div>Silver Medal</div>
                         <i className="fas fa-medal">10</i>
                       </div>
-                      <div>
-                       Gold Medal
+                      <div className ="medal_container">
+                      <div>Gold Medal</div>
+                       
                         <i className="fas fa-award">15</i>
                       </div>
                     </div>
