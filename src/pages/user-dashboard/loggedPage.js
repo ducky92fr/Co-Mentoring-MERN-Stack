@@ -3,7 +3,7 @@ import { Route, Switch,Redirect } from "react-router-dom";
 import NavBar from './navbar'
 import userProfile from "../user-dashboard/nestedPage/userProfile/userProfile"
 import userChat from './nestedPage/userChat'
-import userSearch from './nestedPage/userSearch'
+import userSearch from './nestedPage/userSearch/userSearch'
 import userInfo from './nestedPage/userInfo/userInfor'
 import {connect} from 'react-redux'
 import Aux from '../../components/hoc/Aux'

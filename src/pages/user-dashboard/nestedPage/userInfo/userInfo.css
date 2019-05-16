@@ -13,3 +13,8 @@
   margin: 0 auto;
   width:50%
 }
+
+.user_dashboard{
+  border:1px solid black;
+  border-radius:3px;
+}

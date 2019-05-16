@@ -33,6 +33,7 @@ const NavBar = (props) => {
                 <Button  btnName ="Logout" styles ="button is-primary" type ="submit" click ={props.click}/>
             </div>
         </div>
+
       </div>
     </nav>
     </Aux>
