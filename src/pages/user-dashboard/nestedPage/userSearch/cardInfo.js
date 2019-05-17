@@ -12,7 +12,7 @@ const Card  = props => {
       
       </div>
       <div className ="card_btn">
-      <button value ={props.userID} namesent={props.namesent} className ="btn_grp" onClick ={props.click}>Connect</button>
+      <button value ={props.userID} namereceiv={props.fullName} className ="btn_grp" onClick ={props.click}>Connect</button>
       </div>
     </div>
   )

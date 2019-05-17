@@ -38,7 +38,7 @@ connectHandler = e => {
   e.target.textContent ="Sent"
   e.target.classList.add("btn-disable")
   axios
-  .post(`/api/connect/send?user_id=${e.target.value}&fullNameRece=${e.target.getAttribute('namesent')}&fullNameSent=${this.state.fullNameSent}`)
+  .post(`/api/connect/send?user_id=${e.target.value}&fullNameRece=${e.target.getAttribute('namereceiv')}&fullNameSent=${this.state.fullNameSent}`)
   .then(res => 
     this.setState({message:"Request Sent"}))
   .catch(err => console.log(err))
@@ -59,7 +59,7 @@ this.props.fetchCurrentUser()
       const fullName = user.profileDetails.firstName + " " + user.profileDetails.lastName
       const skill1 = keyObject[0]
       const skill2 = keyObject[1]
-      return <Card key={key} userID={userID} namesent ={fullName} avatar = {avatar} click ={this.connectHandler}  fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
+      return <Card key={key} userID={userID} namereceiv ={fullName} avatar = {avatar} click ={this.connectHandler}  fullName = {fullName} city ={city} skill1 ={skill1} skill2 ={skill2}/>
     })
     return (
       <React.Fragment>

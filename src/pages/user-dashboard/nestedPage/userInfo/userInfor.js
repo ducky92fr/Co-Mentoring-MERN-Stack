@@ -3,6 +3,7 @@ import Container from "./container";
 import CardConnect from "./cardConnect"
 import "./userInfo.css";
 import {connect} from 'react-redux'
+import axios from "axios";
 import {submitProfile} from '../../../../actions/profileActions'
 import {fetchCurrentUser} from '../../../../actions/profileActions'
 import Card from './card'
@@ -11,7 +12,8 @@ class userInfo extends Component {
 state ={
   requestSent:[],
   requestReceived:[],
-  connection:[] 
+  connection:[],
+  fullNameAccept:"" 
 }
 
 static getDerivedStateFromProps(nextProps,prevState){
@@ -26,11 +28,32 @@ static getDerivedStateFromProps(nextProps,prevState){
       return {
         requestReceived:nextProps.profileDetails.profile.requestReceived,
         connection : nextProps.profileDetails.profile.connection,
-        requestSent: nextProps.profileDetails.profile.requestSent
+        requestSent: nextProps.profileDetails.profile.requestSent,
+        fullNameAccept: nextProps.profileDetails.profile.firstName + " " +nextProps.profileDetails.profile.lastName
       }
     }else {return null}
 }else {return null}
 }else {return null}
+}
+
+acceptHandler = e => {
+  console.log("here")
+e.preventDefault();
+axios
+.post(`/api/connect/accept?user_id=${e.target.value}&fullNameSent=${e.target.getAttribute('namesent')}&fullNameAccept=${this.state.fullNameAccept}`)
+.then(res => this.props.fetchCurrentUser())
+.catch(err => console.log(err))
+}
+
+refuseHandler = () => {
+  
+}
+cancelHandler = () => {
+
+}
+
+endHandler = () => {
+  
 }
 
 
@@ -43,8 +66,9 @@ static getDerivedStateFromProps(nextProps,prevState){
       skill = user.profile.competencies.map(el => Object.keys(el)[0])
     }
     let sentField = this.state.requestSent.map(el => {
+      console.log(el)
     return <Card
-    key={el.userID} 
+    key={el.userID+ Math.random()} 
     userID={el.userID}
     type ="To: " 
     sent="yes" 
@@ -55,11 +79,22 @@ static getDerivedStateFromProps(nextProps,prevState){
     )
     let receivedField = this.state.requestReceived.map(el => {
       return <Card
-      key={el.userID}
+      key={el.userID+ Math.random()}
       type="From: "
       userID={el.userID}
       fullName={el.fullName}
       date={el.date.slice(0,10)}
+      clickAccept = {this.acceptHandler}
+      clickRefuse ={this.refuseHandler}
+      />
+    })
+    let connectionField = this.state.connection.map(el => {
+      return  <CardConnect
+      key ={el.userID}
+      userID={el.userID}
+      fullName ={el.fullName}
+      type ="With: "
+      date ={el.date.slice(0,10)}
       />
     })
     
@@ -92,17 +127,20 @@ static getDerivedStateFromProps(nextProps,prevState){
         </Container>
         <Container>
         <Tag content ="Your connection"/>
-        <CardConnect/>
+        <hr/>
+        {connectionField}
         </Container>
          
 </div>
     <div className="column is-two-fifths-desktop is-four-fifths-mobile is-two-thirds-tablet">
         <Container>
         <Tag content ="Requests sent"/>
+        <hr/>
           {sentField}
         </Container>
         <Container>
         <Tag content ="Requests received"/>
+        <hr/>
           {receivedField}
         </Container>
 </div>
