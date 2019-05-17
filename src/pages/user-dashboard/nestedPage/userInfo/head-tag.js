@@ -7,6 +7,6 @@ const Tag = (props) => {
   </div>
 </div>
   )
-}
+} 
 export default Tag
 

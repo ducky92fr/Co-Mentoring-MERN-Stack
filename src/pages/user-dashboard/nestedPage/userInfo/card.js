@@ -14,7 +14,7 @@ const Card  = props => {
       :
       <Aux>
       <button value ={props.userID} namesent = {props.fullName} className ="btn_grp" onClick ={props.clickAccept}>Accept</button>
-      <button value ={props.userID} namesent = {props.fullName} className ="btn_grp" onClick ={props.click}>Refuse</button>
+      <button value ={props.userID} namesent = {props.fullName} className ="btn_grp" onClick ={props.clickRefuse}>Refuse</button>
       </Aux>
     }
      

@@ -20,7 +20,6 @@ static getDerivedStateFromProps(nextProps,prevState){
   if(!nextProps.profileDetails.message){
   const user = {...nextProps.profileDetails.profile}
   if(Object.keys(nextProps.profileDetails).length >0){
-    console.log("here")
   if(prevState.connection.length !== user.connection.length ||
     prevState.requestReceived.length !== user.requestReceived.length ||
     prevState.requestSent.requestSent !== user.requestSent.length
@@ -37,7 +36,6 @@ static getDerivedStateFromProps(nextProps,prevState){
 }
 
 acceptHandler = e => {
-  console.log("here")
 e.preventDefault();
 axios
 .post(`/api/connect/accept?user_id=${e.target.value}&fullNameSent=${e.target.getAttribute('namesent')}&fullNameAccept=${this.state.fullNameAccept}`)
@@ -45,9 +43,15 @@ axios
 .catch(err => console.log(err))
 }
 
-refuseHandler = () => {
-  
+refuseHandler = e => {
+  console.log("here")
+  e.preventDefault();
+  axios
+  .post(`/api/connect/refuse?user_id=${e.target.value}`)
+  .then(res => this.props.fetchCurrentUser())
+  .catch(err => console.log(err))
 }
+
 cancelHandler = () => {
 
 }
