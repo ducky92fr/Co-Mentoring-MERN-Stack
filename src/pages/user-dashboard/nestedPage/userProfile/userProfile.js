@@ -161,7 +161,7 @@ class userProfile extends Component {
       </InputField>
       <Upload selected={fileName ? "Selected file" :"Please choose a file"} fileName ={fileName ? "You have selected " + fileName :null} change ={this.onChange}/>
       <hr/>
-      <Button  btnName ="Submit your profile" styles ="button is-warning" type ="submit" />
+      <Button  btnName ="Submit your profile" styles ="button is-link" type ="submit" />
     </form>
     </div>
     </div>

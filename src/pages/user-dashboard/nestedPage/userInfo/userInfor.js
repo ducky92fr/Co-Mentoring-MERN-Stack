@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {submitProfile} from '../../../../actions/profileActions'
 import {fetchCurrentUser} from '../../../../actions/profileActions'
 import Card from './card'
+import Tag from'./head-tag'
 class userInfo extends Component {
 state ={
   requestSent:[],
@@ -44,12 +45,23 @@ static getDerivedStateFromProps(nextProps,prevState){
     let sentField = this.state.requestSent.map(el => {
     return <Card
     key={el.userID} 
+    userID={el.userID}
     type ="To: " 
     sent="yes" 
     fullName={el.fullName}
-    date={el.date.slice(0,10)} />
+    date={el.date.slice(0,10)}
+    message ={el.message} />
     }
     )
+    let receivedField = this.state.requestReceived.map(el => {
+      return <Card
+      key={el.userID}
+      type="From: "
+      userID={el.userID}
+      fullName={el.fullName}
+      date={el.date.slice(0,10)}
+      />
+    })
     
     return (
       <React.Fragment>
@@ -64,29 +76,35 @@ static getDerivedStateFromProps(nextProps,prevState){
         <div className=" columns is-mobile is-multiline is-centered">
         <div className="column is-two-fifths-desktop is-four-fifths-mobile is-two-thirds-tablet ">
         <Container>
+        <Tag content ="User infos"/>
+          <hr/>
         <figure className="image is-128x128 btn_group">
             <img alt ="avatar "src={user.profile ? user.profile.avatar :null} />
           </figure>
-          <div>First name : {user.profile ? user.profile.firstName : null }</div>
-          <div>Last name : {user.profile ? user.profile.lastName : null}</div>
-          <div>Living City : {user.profile ? user.profile.companyCity : null}</div>
-          <div>
-            Skills: {skill ? skill[0] + " and " + skill[1] : null } 
-          </div>
+          <div className ="card_user">
+      <div className ="card_infor">
+      <div className ="has-text-weight-bold">Last name : {user.profile ? user.profile.firstName : null}</div>
+      <div className ="has-text-weight-bold">First name : {user.profile ? user.profile.lastName : null}</div>
+      <div className ="has-text-weight-bold">Living city: {user.profile ? user.profile.companyCity : null}</div>
+      <div className ="has-text-weight-bold">Skills: {skill ? skill[0] + " and " + skill[1] : null }</div>
+      </div>
+    </div>
         </Container>
         <Container>
+        <Tag content ="Your connection"/>
         <CardConnect/>
         </Container>
          
 </div>
     <div className="column is-two-fifths-desktop is-four-fifths-mobile is-two-thirds-tablet">
         <Container>
+        <Tag content ="Requests sent"/>
           {sentField}
         </Container>
         <Container>
-          <Card type ="From" message ="Hello, i would like to connect with you"/>
+        <Tag content ="Requests received"/>
+          {receivedField}
         </Container>
-        
 </div>
 </div> 
 

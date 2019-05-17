@@ -69,7 +69,7 @@ this.props.fetchCurrentUser()
       <form onSubmit = {this.onSubmitHandler}>
       <div className ="group-items">
       <input type="text" name ="searchInput" className="input is-info is-medium" placeholder="Search your mentor" onChange ={this.onChangeHandler}/>
-      <button  className="button is-medium" type = "submit">Search</button>
+      <button  className="button is-medium is-link" type = "submit">Search</button>
       </div>
       </form>
        <hr/>
