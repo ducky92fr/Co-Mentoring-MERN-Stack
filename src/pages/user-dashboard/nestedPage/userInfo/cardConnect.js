@@ -7,7 +7,7 @@ const cardConnect  = props => {
       <div className ="has-text-weight-bold">Date of connection: <span className="has-text-weight-normal">{props.date}</span> </div>
       </div>
       <div className ="card_btn">
-      <button value ={props.userID} className ="btn_grp" onClick ={props.click}>End</button>
+      <button value ={props.userID} className ="btn_grp" onClick ={props.clickEnd}>End</button>
       </div>
     </div>
   ) 
