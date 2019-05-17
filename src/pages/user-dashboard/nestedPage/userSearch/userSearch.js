@@ -44,6 +44,9 @@ connectHandler = e => {
   .catch(err => console.log(err))
 }
 
+componentWillUnmount(){
+this.props.fetchCurrentUser()
+}
   render(){
     console.log(this.state.result)
     let listUser = this.state.result.map(user => {

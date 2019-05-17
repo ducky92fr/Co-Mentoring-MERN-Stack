@@ -10,14 +10,17 @@ class userInfo extends Component {
 state ={
   requestSent:[],
   requestReceived:[],
-  connection:[]
+  connection:[] 
 }
 
 static getDerivedStateFromProps(nextProps,prevState){
-  if(Object.keys(nextProps.profileDetails).length > 0){
-  if(prevState.connection.length !== nextProps.profileDetails.profile.connection.length ||
-    prevState.requestReceived.length !== nextProps.profileDetails.profile.requestReceived.length ||
-    prevState.requestSent.requestSent !== nextProps.profileDetails.profile.requestSent.length
+  if(!nextProps.profileDetails.message){
+  const user = {...nextProps.profileDetails.profile}
+  if(Object.keys(nextProps.profileDetails).length >0){
+    console.log("here")
+  if(prevState.connection.length !== user.connection.length ||
+    prevState.requestReceived.length !== user.requestReceived.length ||
+    prevState.requestSent.requestSent !== user.requestSent.length
     ) {
       return {
         requestReceived:nextProps.profileDetails.profile.requestReceived,
@@ -26,18 +29,27 @@ static getDerivedStateFromProps(nextProps,prevState){
       }
     }else {return null}
 }else {return null}
+}else {return null}
 }
 
-  componentDidMount(){
-    this.props.fetchCurrentUser()
-  }
+
   render() {
     console.log(this.state)
     const user = {...this.props.profileDetails}
     let skill =null
+    console.log(user)
     if(Object.keys(user).length > 0){
       skill = user.profile.competencies.map(el => Object.keys(el)[0])
     }
+    let sentField = this.state.requestSent.map(el => {
+    return <Card
+    key={el.userID} 
+    type ="To: " 
+    sent="yes" 
+    fullName={el.fullName}
+    date={el.date.slice(0,10)} />
+    }
+    )
     
     return (
       <React.Fragment>
@@ -69,7 +81,7 @@ static getDerivedStateFromProps(nextProps,prevState){
 </div>
     <div className="column is-two-fifths-desktop is-four-fifths-mobile is-two-thirds-tablet">
         <Container>
-          <Card type ="To" sent ="yes"/>
+          {sentField}
         </Container>
         <Container>
           <Card type ="From" message ="Hello, i would like to connect with you"/>

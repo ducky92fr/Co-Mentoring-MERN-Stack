@@ -6,7 +6,7 @@ const userChat = (props) => {
       <div className="column is-four-fifths-mobile is-half-desktop is-three-quarters-tablet">
       <hr/>
       <h1 className ="has-text-centered is-size-4 has-text-weight-bold" >Chat is coming</h1>
-      <button class="button is-info is-loading">Loading</button>
+      <button className="button is-info is-loading">Loading</button>
         </div>
         </div>
     </div>
