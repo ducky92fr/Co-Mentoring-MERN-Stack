@@ -132,8 +132,7 @@ endHandler = e => {
           </figure>
           <div className ="card_user">
       <div className ="card_infor">
-      <div className ="has-text-weight-bold">Last name : {user.profile ? user.profile.firstName : null}</div>
-      <div className ="has-text-weight-bold">First name : {user.profile ? user.profile.lastName : null}</div>
+      <div className ="has-text-weight-bold">Full name: {user.profile ? user.profile.lastName + " " + user.profile.firstName: null}</div>
       <div className ="has-text-weight-bold">Living city: {user.profile ? user.profile.companyCity : null}</div>
       <div className ="has-text-weight-bold">Skills: {skill ? skill[0] + " and " + skill[1] : null }</div>
       </div>
