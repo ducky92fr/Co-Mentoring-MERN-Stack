@@ -3,12 +3,13 @@
 }
 
 .card_user{
-  margin-bottom: 1px;
+  margin-top: 1px;
   border-radius:5px;
   height: 15vh;
   display:flex;
   justify-content: space-between;
   background-color: #fdfbfb;
+  overflow: scroll;
 }
 
 .card_image{
@@ -65,9 +66,13 @@ hr {
 
 @media only screen
 and (min-device-width : 320px)
-and (max-device-width : 480px) {
+and (max-device-width : 568px) {
   .btn_grp{
     width: 100%
   }
-/* STYLES GO HERE */
+  .card_user{
+    margin-top: 2rem;
+    
+  }
 }
+

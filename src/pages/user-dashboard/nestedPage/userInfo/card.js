@@ -10,7 +10,7 @@ const Card  = props => {
       </div>
       <div className ="card_btn">
       {props.sent ? 
-      <button value ={props.userID} className ="btn_grp" onClick ={props.click}>Cancel</button>
+      <button value ={props.userID} className ="btn_grp" onClick ={props.clickCancel}>Cancel</button>
       :
       <Aux>
       <button value ={props.userID} namesent = {props.fullName} className ="btn_grp" onClick ={props.clickAccept}>Accept</button>

@@ -44,7 +44,6 @@ axios
 }
 
 refuseHandler = e => {
-  console.log("here")
   e.preventDefault();
   axios
   .post(`/api/connect/refuse?user_id=${e.target.value}`)
@@ -52,8 +51,12 @@ refuseHandler = e => {
   .catch(err => console.log(err))
 }
 
-cancelHandler = () => {
-
+cancelHandler = e => {
+  e.preventDefault();
+  axios
+  .post(`/api/connect/cancel/?user_id=${e.target.value}`)
+  .then(res => this.props.fetchCurrentUser())
+  .catch(err => console.log(err))
 }
 
 endHandler = () => {
@@ -78,7 +81,9 @@ endHandler = () => {
     sent="yes" 
     fullName={el.fullName}
     date={el.date.slice(0,10)}
-    message ={el.message} />
+    message ={el.message} 
+    clickCancel ={this.cancelHandler}
+    />
     }
     )
     let receivedField = this.state.requestReceived.map(el => {
